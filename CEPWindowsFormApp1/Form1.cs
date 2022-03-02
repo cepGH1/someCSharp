@@ -15,15 +15,35 @@ namespace CEPWindowsFormApp1
         string numShowing = "";
         double myInput1 = 0.0D;
         string myOperation = "";
+        double myRunningTotal = 0.0D;
+        int myOperationCount = 0;
 
         public Form1()
         {
             InitializeComponent();
         }
 
+        private void useOperator( double myInput)
+        {
+           
+        }
         private void button4_Click(object sender, EventArgs e)
         {
+            double myInput2 = Convert.ToDouble(textBox1.Text);
+            if (myOperationCount != 0)
+            {
+                myRunningTotal = myRunningTotal / myInput2;
+                myOperationCount++;
+            }
+            else
+            {
+                myRunningTotal = myInput2;
+                myOperationCount++;
+            }
 
+            numShowing = "";
+
+            myOperation = "divide";
         }
 
         private void sevenButton_Click(object sender, EventArgs e)
@@ -40,6 +60,7 @@ namespace CEPWindowsFormApp1
             
             textBox1.Text = "";
             numShowing = numShowing + "8";
+            
             textBox1.Text = numShowing;
         }
 
@@ -47,6 +68,7 @@ namespace CEPWindowsFormApp1
         {
             textBox1.Text = "";
             numShowing = numShowing + "9";
+            
             textBox1.Text = numShowing;
         }
 
@@ -54,14 +76,27 @@ namespace CEPWindowsFormApp1
         {
             textBox1.Text = "";
             numShowing = numShowing + "6";
+            
             textBox1.Text = numShowing;
         }
 
         private void multiplyButton_Click(object sender, EventArgs e)
         {
-            myInput1 = Convert.ToDouble(textBox1.Text);
-            myOperation = "mult";
+             double myInput2 = Convert.ToDouble(textBox1.Text);
+            if(myOperationCount != 0)
+            {
+                myRunningTotal = myRunningTotal * myInput2;
+                myOperationCount++;
+            }
+            else
+            {
+                myRunningTotal = myInput2;
+                myOperationCount++;
+            }
+
             numShowing = "";
+            
+            myOperation = "mult";
 
             
         }
@@ -103,42 +138,83 @@ namespace CEPWindowsFormApp1
 
         private void minusButton_Click(object sender, EventArgs e)
         {
-            myInput1 = Convert.ToDouble(textBox1.Text);
+           double myInput2 = Convert.ToDouble(textBox1.Text);
+            if (myOperationCount == 0)
+            {
+                myRunningTotal = myInput2;
+
+            }
+            else
+            {
+                myRunningTotal = myRunningTotal - myInput2;
+            }
             myOperation = "minus";
             numShowing = "";
+            myOperationCount++;
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            myInput1 = Convert.ToDouble(textBox1.Text);
+            double myInput2 = Convert.ToDouble(textBox1.Text);
+            if (myOperationCount == 0)
+            {
+                myRunningTotal = myInput2;
+
+            }
+            else
+            {
+                myRunningTotal = myRunningTotal + myInput2;
+            }
+            
             myOperation = "add";
-            numShowing = "";
+            numShowing = ""; 
+            myOperationCount++;
+
         }
 
         private void equalsButton_Click(object sender, EventArgs e)
         {
-            if(myOperation == "mult")
+            if (textBox1.Text != "")
             {
-                myInput1 = myInput1 * Convert.ToDouble(textBox1.Text);
-                textBox1.Text = Convert.ToString(myInput1);
+                double myLastInput = Convert.ToDouble(textBox1.Text);
+
+                if (myOperation == "mult")
+                {
+                    myRunningTotal = myRunningTotal * myLastInput;
+                }
+                if (myOperation == "add")
+                {
+                    myRunningTotal = myRunningTotal + myLastInput;
+                }
+                if (myOperation == "minus")
+                {
+                    myRunningTotal = myRunningTotal - myLastInput;
+                }
+                if (myOperation == "divide")
+                {
+                    myRunningTotal = myRunningTotal / myLastInput;
+                }
+
+
+                numShowing = Convert.ToString(myRunningTotal);
+                textBox1.Text = numShowing;
+                myOperationCount = 0;
             }
-            if(myOperation == "add")
+            else
             {
-                myInput1 = myInput1 + Convert.ToDouble(textBox1.Text);
-                textBox1.Text = Convert.ToString(myInput1);
+                textBox1.Text = "";
             }
-            if (myOperation == "minus")
-            {
-                myInput1 = myInput1 - Convert.ToDouble(textBox1.Text);
-                textBox1.Text = Convert.ToString(myInput1);
-            }
+
+
         }
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            textBox1 = null;
+            textBox1.Text = "";
             numShowing = "";
             myInput1 = 0;
+            myOperationCount = 0;
+            myRunningTotal = 0;
         }
 
         private void decimalButton_Click(object sender, EventArgs e)
@@ -160,6 +236,7 @@ namespace CEPWindowsFormApp1
                 numShowing = '-' + numShowing;
             }
             textBox1.Text = numShowing;
+            myRunningTotal = Convert.ToDouble(numShowing);
         }
 
         private void zeroButton_Click(object sender, EventArgs e)
