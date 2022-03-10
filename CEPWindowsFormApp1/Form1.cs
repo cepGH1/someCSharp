@@ -12,6 +12,7 @@ namespace CEPWindowsFormApp1
 {
     public partial class Form1 : Form
     {
+        Calculator myCalculator;
         string numShowing = "";
         double myInput1 = 0.0D;
         string myOperation = "";
@@ -21,7 +22,9 @@ namespace CEPWindowsFormApp1
         public Form1()
         {
             InitializeComponent();
-        }
+            CEPclass2 clare = new CEPclass2("clare", 30, "red");
+            myCalculator = new Calculator();
+        } 
 
         private void useOperator( double myInput)
         {
