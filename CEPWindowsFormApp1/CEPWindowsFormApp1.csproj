@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddedClass2.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="CEPclass2.cs" />
     <Compile Include="Form1.cs">
